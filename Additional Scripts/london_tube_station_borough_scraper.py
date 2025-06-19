@@ -32,6 +32,29 @@ def clean_station_name(station_name):
     
     return cleaned
 
+def clean_borough_name(borough_name):
+    """
+    Clean borough names according to specific rules:
+    1. City of Westminster -> Westminster (but City of London stays as City of London)
+    2. Remove "London Borough of " and "Royal Borough of " prefixes
+    """
+    cleaned = borough_name.strip()
+    
+    # Special case: City of Westminster -> Westminster
+    if cleaned == "City of Westminster":
+        return "Westminster"
+    
+    # Remove "London Borough of " prefix
+    cleaned = re.sub(r'^London Borough of\s+', '', cleaned, flags=re.IGNORECASE)
+    
+    # Remove "Royal Borough of " prefix
+    cleaned = re.sub(r'^Royal Borough of\s+', '', cleaned, flags=re.IGNORECASE)
+    
+    # Clean up any extra whitespace
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    
+    return cleaned
+
 def scrape_borough_categories(main_url):
     """
     Scrape the main category page to get all borough subcategories
@@ -179,6 +202,9 @@ def save_to_csv(stations, filename='london_tube_stations_by_borough.csv'):
     # Create DataFrame
     df = pd.DataFrame(stations)
     
+    # Clean borough names
+    df['borough'] = df['borough'].apply(clean_borough_name)
+    
     # Select and reorder columns
     df_output = df[['station_name', 'borough', 'full_name']].copy()
     
@@ -230,8 +256,7 @@ def main():
     print("Starting London Tube Stations scraper...")
     
     # Show cleaning examples
-    test_station_name_cleaning()
-    
+
     # Scrape all stations
     stations = scrape_all_tube_stations()
     
@@ -241,12 +266,15 @@ def main():
         
         # Also save detailed version with URLs for reference
         df_detailed = pd.DataFrame(stations)
+        # Apply borough cleaning to detailed version too
+        df_detailed['borough'] = df_detailed['borough'].apply(clean_borough_name)
         df_detailed.to_csv('london_tube_stations_detailed.csv', index=False)
         print("Also saved detailed version with URLs to london_tube_stations_detailed.csv")
         
         # Show some examples of cleaned names
         print("\nExample of cleaned station names:")
         df = pd.DataFrame(stations)
+        df['borough'] = df['borough'].apply(clean_borough_name)
         sample = df[['full_name', 'station_name', 'borough']].sample(min(10, len(df)))
         for _, row in sample.iterrows():
             print(f"  '{row['full_name']}' -> '{row['station_name']}' ({row['borough']})")
