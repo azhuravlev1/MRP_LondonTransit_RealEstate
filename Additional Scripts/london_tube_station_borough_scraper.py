@@ -69,6 +69,28 @@ def scrape_borough_categories(main_url):
                             'url': full_url
                         })
         
+        # Also look for City of London link in the main content area
+        content_div = soup.find('div', class_='mw-content-ltr mw-parser-output')
+        
+        if content_div:
+            # Look for any link that contains "City of London" in the main content
+            all_links = content_div.find_all('a', href=True)
+            for link in all_links:
+                link_text = link.get_text().strip()
+                href = link.get('href', '')
+                
+                # Check if this is a City of London tube stations link
+                if (re.search(r'City of London', link_text, re.IGNORECASE) and 
+                    '/wiki/Category:Tube_stations_in_the_City_of_London' in href):
+                    full_url = urljoin(main_url, href)
+                    borough_categories.append({
+                        'borough': 'City of London',
+                        'category_name': 'Tube stations in the City of London',
+                        'url': full_url
+                    })
+                    print("Found City of London category link in main content")
+                    break  # Found it, no need to continue searching
+        
         return borough_categories
     
     except Exception as e:
