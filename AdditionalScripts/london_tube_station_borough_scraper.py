@@ -8,8 +8,11 @@ from urllib.parse import urljoin
 
 def clean_station_name(station_name):
     """
-    Clean station names by removing all variations of station suffixes
+    Clean station names by removing all variations of station suffixes,
+    and always remove ' tube' at the end.
     """
+    cleaned = station_name.strip()
+    
     # Remove common station suffixes (case insensitive)
     patterns_to_remove = [
         r'\s+tube\s+station',
@@ -22,10 +25,11 @@ def clean_station_name(station_name):
         r'\s+\(London\s+Underground\s+station\)'
     ]
     
-    cleaned = station_name.strip()
-    
     for pattern in patterns_to_remove:
         cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
+    
+    # Always remove ' tube' at the end (case insensitive)
+    cleaned = re.sub(r'\s+tube$', '', cleaned, flags=re.IGNORECASE)
     
     # Clean up any extra whitespace
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
@@ -37,6 +41,7 @@ def clean_borough_name(borough_name):
     Clean borough names according to specific rules:
     1. City of Westminster -> Westminster (but City of London stays as City of London)
     2. Remove "London Borough of " and "Royal Borough of " prefixes
+    3. Standardize "and" to "&" for consistency with UK House Price Index
     """
     cleaned = borough_name.strip()
     
@@ -50,8 +55,72 @@ def clean_borough_name(borough_name):
     # Remove "Royal Borough of " prefix
     cleaned = re.sub(r'^Royal Borough of\s+', '', cleaned, flags=re.IGNORECASE)
     
+    # Standardize "and" to "&" for consistency with UK House Price Index
+    cleaned = re.sub(r'\s+and\s+', ' & ', cleaned)
+    
     # Clean up any extra whitespace
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    
+    return cleaned
+
+def clean_station_name_for_od_compatibility(station_name):
+    """
+    Clean station names to match OD 2017 naming patterns.
+    This function applies specific transformations based on the examples provided.
+    """
+    cleaned = station_name.strip()
+    
+    # 1. Bank and Monuments -> Bank / Monument
+    if cleaned == "Bank and Monuments":
+        return "Bank / Monument"
+    
+    # 2. Heathrow Terminals 2 & 3 -> Heathrow Terminals 123
+    if cleaned == "Heathrow Terminals 2 & 3":
+        return "Heathrow Terminals 123"
+    
+    # 3. King's Cross St Pancras -> King's Cross St. Pancras (add apostrophe)
+    if cleaned == "King's Cross St Pancras":
+        return "King's Cross St. Pancras"
+    
+    # 4. Paddington stations -> Paddington (unify the complex)
+    if cleaned.startswith("Paddington ("):
+        return "Paddington"
+    
+    # 5. Remove location clarifications in parentheses
+    # Kew Gardens (London) -> Kew Gardens
+    # Queen's Park (England) -> Queen's Park  
+    # Richmond (London) -> Richmond
+    cleaned = re.sub(r'\s+\(London\)$', '', cleaned)
+    cleaned = re.sub(r'\s+\(England\)$', '', cleaned)
+    
+    # 6. Handle Edgware Road stations with line descriptions
+    if cleaned.startswith("Edgware Road ("):
+        if "Bakerloo line" in cleaned:
+            return "Edgware Road (Bak)"
+        elif "Circle, District and Hammersmith & City lines" in cleaned:
+            return "Edgware Road (Cir)"
+    
+    # 7. Handle Hammersmith stations with line descriptions
+    if cleaned.startswith("Hammersmith ("):
+        if "District and Piccadilly lines" in cleaned:
+            return "Hammersmith (Dis)"
+        elif "Circle and Hammersmith & City lines" in cleaned:
+            return "Hammersmith (H&C)"
+    
+    # 8. Add line abbreviation for Shepherd's Bush if it doesn't have one
+    if cleaned == "Shepherd's Bush":
+        return "Shepherd's Bush (Cen)"
+    
+    # 9. Add apostrophes to St. names that are missing them
+    # St James's Park -> St. James's Park
+    # St John's Wood -> St. John's Wood  
+    # St Paul's -> St. Paul's
+    if cleaned == "St James's Park":
+        return "St. James's Park"
+    if cleaned == "St John's Wood":
+        return "St. John's Wood"
+    if cleaned == "St Paul's":
+        return "St. Paul's"
     
     return cleaned
 
@@ -205,8 +274,14 @@ def save_to_csv(stations, filename='london_tube_stations_by_borough.csv'):
     # Clean borough names
     df['borough'] = df['borough'].apply(clean_borough_name)
     
+    # Apply OD compatibility cleaning to station names
+    df['station_name'] = df['station_name'].apply(clean_station_name_for_od_compatibility)
+    
+    # Remove duplicates based on station_name, keeping the first occurrence
+    df_output = df.drop_duplicates(subset=['station_name'], keep='first')
+    
     # Select and reorder columns
-    df_output = df[['station_name', 'borough', 'full_name']].copy()
+    df_output = df_output[['station_name', 'borough', 'full_name']].copy()
     
     # Sort by borough, then by station name
     df_output = df_output.sort_values(['borough', 'station_name'])
@@ -249,13 +324,76 @@ def test_station_name_cleaning():
         print(f"'{name}' -> '{cleaned}'")
     print("-" * 50)
 
+def test_borough_name_cleaning():
+    """
+    Test the borough name cleaning function with various examples
+    """
+    test_boroughs = [
+        "City of Westminster",
+        "City of London",
+        "London Borough of Camden",
+        "Royal Borough of Kensington and Chelsea",
+        "London Borough of Islington",
+        "Royal Borough of Greenwich",
+        "Hackney",  # Already clean
+        "Tower Hamlets",  # Already clean
+        "Barking and Dagenham",
+        "Hammersmith and Fulham",
+        "Kensington and Chelsea"
+    ]
+    
+    print("Testing borough name cleaning:")
+    print("-" * 50)
+    for borough in test_boroughs:
+        cleaned = clean_borough_name(borough)
+        print(f"'{borough}' -> '{cleaned}'")
+    print("-" * 50)
+
+def test_od_compatibility_cleaning():
+    """
+    Test the OD compatibility station name cleaning function with the specific examples provided
+    """
+    test_cases = [
+        ("Bank and Monuments", "Bank / Monument"),
+        ("Edgware Road (Bakerloo line)", "Edgware Road (Bak)"),
+        ("Edgware Road (Circle, District and Hammersmith & City lines)", "Edgware Road (Cir)"),
+        ("Hammersmith (District and Piccadilly lines)", "Hammersmith (Dis)"),
+        ("Hammersmith (Circle and Hammersmith & City lines)", "Hammersmith (H&C)"),
+        ("Heathrow Terminals 2 & 3", "Heathrow Terminals 123"),
+        ("King's Cross St Pancras", "King's Cross St. Pancras"),
+        ("Kew Gardens (London)", "Kew Gardens"),
+        ("Queen's Park (England)", "Queen's Park"),
+        ("Richmond (London)", "Richmond"),
+        ("Shepherd's Bush", "Shepherd's Bush (Cen)"),
+        ("St James's Park", "St. James's Park"),
+        ("St John's Wood", "St. John's Wood"),
+        ("St Paul's", "St. Paul's"),
+        # Paddington test cases
+        ("Paddington (Bakerloo, Circle and District lines)", "Paddington"),
+        ("Paddington (Circle and Hammersmith & City lines)", "Paddington"),
+        # Test cases that should remain unchanged
+        ("Oxford Circus", "Oxford Circus"),
+        ("Waterloo", "Waterloo"),
+        ("Piccadilly Circus", "Piccadilly Circus")
+    ]
+    
+    print("Testing OD compatibility station name cleaning:")
+    print("-" * 70)
+    for original, expected in test_cases:
+        result = clean_station_name_for_od_compatibility(original)
+        status = "✓" if result == expected else "✗"
+        print(f"{status} '{original}' -> '{result}' (expected: '{expected}')")
+    print("-" * 70)
+
 def main():
     """
     Main execution function
     """
     print("Starting London Tube Stations scraper...")
     
-    # Show cleaning examples
+    # Test the OD compatibility cleaning function
+    test_od_compatibility_cleaning()
+    print()
 
     # Scrape all stations
     stations = scrape_all_tube_stations()
