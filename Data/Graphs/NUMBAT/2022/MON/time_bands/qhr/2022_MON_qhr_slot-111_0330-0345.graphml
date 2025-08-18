@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">Ealing</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">Hillingdon</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Out of London</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">Westminster</data>
+    </node>
+    <edge source="n0" target="n0">
+      <data key="e_weight">0.00021344135</data>
+    </edge>
+    <edge source="n0" target="n1">
+      <data key="e_weight">0.001308058988</data>
+    </edge>
+    <edge source="n0" target="n2">
+      <data key="e_weight">0.0006748551135</data>
+    </edge>
+    <edge source="n3" target="n0">
+      <data key="e_weight">0.37241195</data>
+    </edge>
+    <edge source="n3" target="n1">
+      <data key="e_weight">0.037728088</data>
+    </edge>
+    <edge source="n3" target="n2">
+      <data key="e_weight">0.0106053127</data>
+    </edge>
+  </graph>
+</graphml>

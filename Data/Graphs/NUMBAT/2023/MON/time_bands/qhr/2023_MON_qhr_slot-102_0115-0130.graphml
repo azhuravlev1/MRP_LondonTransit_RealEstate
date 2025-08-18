@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">Barking &amp; Dagenham</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">Havering</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Harrow</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">Hillingdon</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">Out of London</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">Newham</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">Redbridge</data>
+    </node>
+    <node id="n7">
+      <data key="v_name">Waltham Forest</data>
+    </node>
+    <edge source="n0" target="n0">
+      <data key="e_weight">0.142723504618097</data>
+    </edge>
+    <edge source="n0" target="n1">
+      <data key="e_weight">3.056471203e-06</data>
+    </edge>
+    <edge source="n2" target="n3">
+      <data key="e_weight">0.208951951809206</data>
+    </edge>
+    <edge source="n1" target="n1">
+      <data key="e_weight">0.398552985735854</data>
+    </edge>
+    <edge source="n1" target="n4">
+      <data key="e_weight">0.4670954458471</data>
+    </edge>
+    <edge source="n3" target="n3">
+      <data key="e_weight">1.29782636096458</data>
+    </edge>
+    <edge source="n5" target="n0">
+      <data key="e_weight">0.30164695</data>
+    </edge>
+    <edge source="n4" target="n4">
+      <data key="e_weight">0.71399426</data>
+    </edge>
+    <edge source="n6" target="n1">
+      <data key="e_weight">1.21542212e-08</data>
+    </edge>
+    <edge source="n7" target="n7">
+      <data key="e_weight">0.614769312765484</data>
+    </edge>
+  </graph>
+</graphml>

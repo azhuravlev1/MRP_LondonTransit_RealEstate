@@ -1,10 +1,5 @@
-import requests
-from bs4 import BeautifulSoup
 import re
-import csv
-import time
 import pandas as pd
-from urllib.parse import urljoin
 
 def clean_station_name(station_name):
     """
@@ -84,54 +79,63 @@ def clean_station_name_for_od_compatibility(station_name):
 
 def scrape_dlr_stations_and_boroughs(main_url):
     """
-    Scrape all DLR station names and their boroughs from the main page
+    Scrape DLR station names and their boroughs from the first table on the Wikipedia page
+    using pandas.read_html() for simpler and more reliable extraction
     """
     try:
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
-        response = requests.get(main_url, headers=headers)
-        response.raise_for_status()
+        print(f"Reading tables from: {main_url}")
         
-        soup = BeautifulSoup(response.content, 'html.parser')
+        # Read all tables from the Wikipedia page
+        tables = pd.read_html(main_url)
         
-        stations = []
+        if not tables:
+            print("No tables found on the page")
+            return []
         
-        # Find all tables on the page
-        tables = soup.find_all('table', class_='wikitable')
+        # Get the first table
+        first_table = tables[0]
+        print(f"First table shape: {first_table.shape}")
+        print(f"First table columns: {list(first_table.columns)}")
         
-        for table in tables:
-            # Look for tables that contain station information
-            rows = table.find_all('tr')
+        # Extract only the 1st and 3rd columns (0-indexed)
+        if len(first_table.columns) >= 3:
+            station_col = first_table.iloc[:, 0]  # 1st column
+            borough_col = first_table.iloc[:, 2]  # 3rd column
             
-            for row in rows[1:]:  # Skip header row
-                cells = row.find_all(['td', 'th'])
+            # Create a new DataFrame with just these columns
+            df = pd.DataFrame({
+                'station_name': station_col,
+                'borough': borough_col
+            })
+            
+            # Remove rows where either station_name or borough is NaN
+            df = df.dropna(subset=['station_name', 'borough'])
+            
+            # Convert to list of dictionaries
+            stations = []
+            for _, row in df.iterrows():
+                station_name = str(row['station_name']).strip()
+                borough_name = str(row['borough']).strip()
                 
-                if len(cells) >= 3:  # Ensure we have enough columns
-                    # Extract station name from the first column
-                    station_cell = cells[0]
-                    station_link = station_cell.find('a')
+                # Skip header rows or empty rows
+                if (station_name and borough_name and 
+                    station_name.lower() != 'station' and 
+                    borough_name.lower() != 'local authority'):
                     
-                    if station_link:
-                        station_name = station_link.get_text().strip()
-                        
-                        # Extract borough from the Local authority column (usually 3rd column)
-                        borough_cell = cells[2] if len(cells) > 2 else cells[1]
-                        borough_name = borough_cell.get_text().strip()
-                        
-                        # Clean station name
-                        clean_name = clean_station_name(station_name)
-                        
-                        # Only add if we have both station name and borough
-                        if clean_name and borough_name and borough_name != "Local authority":
-                            stations.append({
-                                'station_name': clean_name,
-                                'borough': borough_name,
-                                'full_name': station_name,
-                                'url': urljoin(main_url, station_link.get('href', ''))
-                            })
-        
-        return stations
+                    # Clean station name
+                    clean_name = clean_station_name(station_name)
+                    
+                    stations.append({
+                        'station_name': clean_name,
+                        'borough': borough_name,
+                        'full_name': station_name,
+                        'url': ''  # No URL needed with pandas approach
+                    })
+            
+            return stations
+        else:
+            print(f"Table doesn't have enough columns. Found {len(first_table.columns)} columns")
+            return []
     
     except Exception as e:
         print(f"Error scraping DLR stations: {e}")

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">Ealing</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">Barking &amp; Dagenham</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Camden</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">City of London</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">Greenwich</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">Hammersmith &amp; Fulham</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">Havering</data>
+    </node>
+    <node id="n7">
+      <data key="v_name">Hillingdon</data>
+    </node>
+    <node id="n8">
+      <data key="v_name">Hounslow</data>
+    </node>
+    <node id="n9">
+      <data key="v_name">Kensington &amp; Chelsea</data>
+    </node>
+    <node id="n10">
+      <data key="v_name">Lambeth</data>
+    </node>
+    <node id="n11">
+      <data key="v_name">Newham</data>
+    </node>
+    <node id="n12">
+      <data key="v_name">Out of London</data>
+    </node>
+    <node id="n13">
+      <data key="v_name">Southwark</data>
+    </node>
+    <node id="n14">
+      <data key="v_name">Tower Hamlets</data>
+    </node>
+    <node id="n15">
+      <data key="v_name">Waltham Forest</data>
+    </node>
+    <node id="n16">
+      <data key="v_name">Westminster</data>
+    </node>
+    <node id="n17">
+      <data key="v_name">Brent</data>
+    </node>
+    <node id="n18">
+      <data key="v_name">Islington</data>
+    </node>
+    <node id="n19">
+      <data key="v_name">Richmond upon Thames</data>
+    </node>
+    <node id="n20">
+      <data key="v_name">Merton</data>
+    </node>
+    <node id="n21">
+      <data key="v_name">Wandsworth</data>
+    </node>
+    <edge source="n0" target="n1">
+      <data key="e_weight">0.611753745496</data>
+    </edge>
+    <edge source="n0" target="n2">
+      <data key="e_weight">0.003311432037</data>
+    </edge>
+    <edge source="n0" target="n3">
+      <data key="e_weight">0.90162920534</data>
+    </edge>
+    <edge source="n0" target="n0">
+      <data key="e_weight">2.68850085118</data>
+    </edge>
+    <edge source="n0" target="n4">
+      <data key="e_weight">0.0024031082</data>
+    </edge>
+    <edge source="n0" target="n5">
+      <data key="e_weight">4.0013609334964</data>
+    </edge>
+    <edge source="n0" target="n6">
+      <data key="e_weight">0.00013296765</data>
+    </edge>
+    <edge source="n0" target="n7">
+      <data key="e_weight">791.864100997112</data>
+    </edge>
+    <edge source="n0" target="n8">
+      <data key="e_weight">0.0092335391</data>
+    </edge>
+    <edge source="n0" target="n9">
+      <data key="e_weight">6.3740569563</data>
+    </edge>
+    <edge source="n0" target="n10">
+      <data key="e_weight">0.279793903</data>
+    </edge>
+    <edge source="n0" target="n11">
+      <data key="e_weight">0.064874597054</data>
+    </edge>
+    <edge source="n0" target="n12">
+      <data key="e_weight">7.13766</data>
+    </edge>
+    <edge source="n0" target="n13">
+      <data key="e_weight">0.3924129314</data>
+    </edge>
+    <edge source="n0" target="n14">
+      <data key="e_weight">1.80291081893</data>
+    </edge>
+    <edge source="n0" target="n15">
+      <data key="e_weight">1.869737</data>
+    </edge>
+    <edge source="n0" target="n16">
+      <data key="e_weight">8.469735539</data>
+    </edge>
+    <edge source="n5" target="n17">
+      <data key="e_weight">0.014664026</data>
+    </edge>
+    <edge source="n5" target="n2">
+      <data key="e_weight">1.960849233</data>
+    </edge>
+    <edge source="n5" target="n3">
+      <data key="e_weight">0.9167637194</data>
+    </edge>
+    <edge source="n5" target="n4">
+      <data key="e_weight">0.0014269034</data>
+    </edge>
+    <edge source="n5" target="n5">
+      <data key="e_weight">2.6226496e-06</data>
+    </edge>
+    <edge source="n5" target="n18">
+      <data key="e_weight">4.2223467218</data>
+    </edge>
+    <edge source="n5" target="n9">
+      <data key="e_weight">1.78332837</data>
+    </edge>
+    <edge source="n5" target="n10">
+      <data key="e_weight">0.041262127</data>
+    </edge>
+    <edge source="n5" target="n11">
+      <data key="e_weight">0.03396295841</data>
+    </edge>
+    <edge source="n5" target="n14">
+      <data key="e_weight">0.031369393595</data>
+    </edge>
+    <edge source="n5" target="n16">
+      <data key="e_weight">7.17008730955</data>
+    </edge>
+    <edge source="n6" target="n1">
+      <data key="e_weight">0.837629576464</data>
+    </edge>
+    <edge source="n6" target="n2">
+      <data key="e_weight">0.42215018667</data>
+    </edge>
+    <edge source="n6" target="n3">
+      <data key="e_weight">27.2470003</data>
+    </edge>
+    <edge source="n6" target="n0">
+      <data key="e_weight">0.018918622</data>
+    </edge>
+    <edge source="n6" target="n5">
+      <data key="e_weight">1.47719188</data>
+    </edge>
+    <edge source="n6" target="n7">
+      <data key="e_weight">0.00014866795</data>
+    </edge>
+    <edge source="n6" target="n8">
+      <data key="e_weight">0.00043088925</data>
+    </edge>
+    <edge source="n6" target="n9">
+      <data key="e_weight">0.06350730304</data>
+    </edge>
+    <edge source="n6" target="n10">
+      <data key="e_weight">1.99869</data>
+    </edge>
+    <edge source="n6" target="n11">
+      <data key="e_weight">17.67989698083</data>
+    </edge>
+    <edge source="n6" target="n19">
+      <data key="e_weight">0.0193833622</data>
+    </edge>
+    <edge source="n6" target="n14">
+      <data key="e_weight">14.57063243774</data>
+    </edge>
+    <edge source="n6" target="n16">
+      <data key="e_weight">1.7290267287</data>
+    </edge>
+    <edge source="n7" target="n7">
+      <data key="e_weight">538.2971396145</data>
+    </edge>
+    <edge source="n8" target="n7">
+      <data key="e_weight">33.117058774</data>
+    </edge>
+    <edge source="n8" target="n8">
+      <data key="e_weight">5.2804526</data>
+    </edge>
+    <edge source="n9" target="n2">
+      <data key="e_weight">0.0760136692</data>
+    </edge>
+    <edge source="n9" target="n3">
+      <data key="e_weight">0.038743841258</data>
+    </edge>
+    <edge source="n9" target="n18">
+      <data key="e_weight">0.10356229684</data>
+    </edge>
+    <edge source="n9" target="n9">
+      <data key="e_weight">0.04143467</data>
+    </edge>
+    <edge source="n9" target="n14">
+      <data key="e_weight">0.011956093</data>
+    </edge>
+    <edge source="n9" target="n16">
+      <data key="e_weight">3.6773767922</data>
+    </edge>
+    <edge source="n20" target="n3">
+      <data key="e_weight">0.0833590332</data>
+    </edge>
+    <edge source="n20" target="n5">
+      <data key="e_weight">0.0034620443</data>
+    </edge>
+    <edge source="n20" target="n8">
+      <data key="e_weight">0.044734355</data>
+    </edge>
+    <edge source="n20" target="n9">
+      <data key="e_weight">1.934580123</data>
+    </edge>
+    <edge source="n20" target="n21">
+      <data key="e_weight">3.0561909</data>
+    </edge>
+    <edge source="n20" target="n16">
+      <data key="e_weight">0.286906013</data>
+    </edge>
+    <edge source="n12" target="n3">
+      <data key="e_weight">2.2569823</data>
+    </edge>
+    <edge source="n12" target="n6">
+      <data key="e_weight">0.01805498</data>
+    </edge>
+    <edge source="n12" target="n11">
+      <data key="e_weight">6.175832264</data>
+    </edge>
+    <edge source="n12" target="n12">
+      <data key="e_weight">6.3250306</data>
+    </edge>
+    <edge source="n16" target="n2">
+      <data key="e_weight">4.3112988515</data>
+    </edge>
+    <edge source="n16" target="n3">
+      <data key="e_weight">13.001128012355</data>
+    </edge>
+    <edge source="n16" target="n0">
+      <data key="e_weight">0.289167444</data>
+    </edge>
+    <edge source="n16" target="n7">
+      <data key="e_weight">3.70727192</data>
+    </edge>
+    <edge source="n16" target="n18">
+      <data key="e_weight">10.89879945</data>
+    </edge>
+    <edge source="n16" target="n16">
+      <data key="e_weight">7.381058999377</data>
+    </edge>
+  </graph>
+</graphml>

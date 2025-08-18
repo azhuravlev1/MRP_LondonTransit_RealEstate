@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">Brent</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">City of London</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Islington</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">Camden</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">Croydon</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">Ealing</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">Barking &amp; Dagenham</data>
+    </node>
+    <node id="n7">
+      <data key="v_name">Greenwich</data>
+    </node>
+    <node id="n8">
+      <data key="v_name">Newham</data>
+    </node>
+    <node id="n9">
+      <data key="v_name">Southwark</data>
+    </node>
+    <node id="n10">
+      <data key="v_name">Westminster</data>
+    </node>
+    <node id="n11">
+      <data key="v_name">Harrow</data>
+    </node>
+    <node id="n12">
+      <data key="v_name">Havering</data>
+    </node>
+    <node id="n13">
+      <data key="v_name">Hillingdon</data>
+    </node>
+    <node id="n14">
+      <data key="v_name">Kensington &amp; Chelsea</data>
+    </node>
+    <node id="n15">
+      <data key="v_name">Tower Hamlets</data>
+    </node>
+    <edge source="n0" target="n1">
+      <data key="e_weight">0.017</data>
+    </edge>
+    <edge source="n0" target="n2">
+      <data key="e_weight">0.005</data>
+    </edge>
+    <edge source="n3" target="n4">
+      <data key="e_weight">0.001</data>
+    </edge>
+    <edge source="n5" target="n6">
+      <data key="e_weight">0.012</data>
+    </edge>
+    <edge source="n5" target="n1">
+      <data key="e_weight">0.012</data>
+    </edge>
+    <edge source="n5" target="n4">
+      <data key="e_weight">0.002</data>
+    </edge>
+    <edge source="n5" target="n7">
+      <data key="e_weight">0.045</data>
+    </edge>
+    <edge source="n5" target="n8">
+      <data key="e_weight">0.076</data>
+    </edge>
+    <edge source="n5" target="n9">
+      <data key="e_weight">0.001</data>
+    </edge>
+    <edge source="n5" target="n10">
+      <data key="e_weight">2.294</data>
+    </edge>
+    <edge source="n11" target="n3">
+      <data key="e_weight">0.001</data>
+    </edge>
+    <edge source="n11" target="n1">
+      <data key="e_weight">0.16</data>
+    </edge>
+    <edge source="n11" target="n12">
+      <data key="e_weight">0.002</data>
+    </edge>
+    <edge source="n11" target="n2">
+      <data key="e_weight">0.014</data>
+    </edge>
+    <edge source="n13" target="n6">
+      <data key="e_weight">0.029</data>
+    </edge>
+    <edge source="n13" target="n3">
+      <data key="e_weight">0.01</data>
+    </edge>
+    <edge source="n13" target="n1">
+      <data key="e_weight">0.036</data>
+    </edge>
+    <edge source="n13" target="n7">
+      <data key="e_weight">0.018000001</data>
+    </edge>
+    <edge source="n13" target="n13">
+      <data key="e_weight">0.139</data>
+    </edge>
+    <edge source="n13" target="n2">
+      <data key="e_weight">0.006</data>
+    </edge>
+    <edge source="n13" target="n14">
+      <data key="e_weight">0.006</data>
+    </edge>
+    <edge source="n13" target="n8">
+      <data key="e_weight">0.011</data>
+    </edge>
+    <edge source="n13" target="n9">
+      <data key="e_weight">0.001</data>
+    </edge>
+    <edge source="n13" target="n15">
+      <data key="e_weight">0.066</data>
+    </edge>
+    <edge source="n13" target="n10">
+      <data key="e_weight">2.582</data>
+    </edge>
+  </graph>
+</graphml>

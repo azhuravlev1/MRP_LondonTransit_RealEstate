@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">Hackney</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">Lewisham</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Tower Hamlets</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">Havering</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">Out of London</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">Islington</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">Southwark</data>
+    </node>
+    <node id="n7">
+      <data key="v_name">Redbridge</data>
+    </node>
+    <node id="n8">
+      <data key="v_name">Waltham Forest</data>
+    </node>
+    <edge source="n0" target="n0">
+      <data key="e_weight">0.00029276466</data>
+    </edge>
+    <edge source="n0" target="n1">
+      <data key="e_weight">0.00023070164</data>
+    </edge>
+    <edge source="n0" target="n2">
+      <data key="e_weight">0.000111225453</data>
+    </edge>
+    <edge source="n3" target="n3">
+      <data key="e_weight">0.043619774</data>
+    </edge>
+    <edge source="n3" target="n4">
+      <data key="e_weight">0.119897380004931</data>
+    </edge>
+    <edge source="n5" target="n6">
+      <data key="e_weight">0.00035538166</data>
+    </edge>
+    <edge source="n4" target="n4">
+      <data key="e_weight">0.003540303169535</data>
+    </edge>
+    <edge source="n7" target="n3">
+      <data key="e_weight">0.002114855</data>
+    </edge>
+    <edge source="n7" target="n4">
+      <data key="e_weight">6.8841706e-09</data>
+    </edge>
+    <edge source="n6" target="n0">
+      <data key="e_weight">1.09588127e-08</data>
+    </edge>
+    <edge source="n6" target="n5">
+      <data key="e_weight">0.000415818377043</data>
+    </edge>
+    <edge source="n6" target="n1">
+      <data key="e_weight">0.004734640883279</data>
+    </edge>
+    <edge source="n6" target="n2">
+      <data key="e_weight">0.0101648392375456</data>
+    </edge>
+    <edge source="n2" target="n0">
+      <data key="e_weight">0.0018862764</data>
+    </edge>
+    <edge source="n2" target="n5">
+      <data key="e_weight">0.0042533002</data>
+    </edge>
+    <edge source="n2" target="n1">
+      <data key="e_weight">5.6322835e-05</data>
+    </edge>
+    <edge source="n8" target="n8">
+      <data key="e_weight">0.142785037010576</data>
+    </edge>
+  </graph>
+</graphml>

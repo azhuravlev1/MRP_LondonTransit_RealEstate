@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">Hillingdon</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">Out of London</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Camden</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">City of London</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">Ealing</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">Hammersmith &amp; Fulham</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">Westminster</data>
+    </node>
+    <edge source="n0" target="n0">
+      <data key="e_weight">1.6981251e-06</data>
+    </edge>
+    <edge source="n0" target="n1">
+      <data key="e_weight">0.0014377875369</data>
+    </edge>
+    <edge source="n1" target="n2">
+      <data key="e_weight">0.000482634182</data>
+    </edge>
+    <edge source="n1" target="n3">
+      <data key="e_weight">1.787593e-06</data>
+    </edge>
+    <edge source="n1" target="n4">
+      <data key="e_weight">2.528502e-05</data>
+    </edge>
+    <edge source="n1" target="n5">
+      <data key="e_weight">6.5384224e-06</data>
+    </edge>
+    <edge source="n1" target="n0">
+      <data key="e_weight">1.03595829e-06</data>
+    </edge>
+    <edge source="n1" target="n1">
+      <data key="e_weight">0.0022509221972</data>
+    </edge>
+    <edge source="n1" target="n6">
+      <data key="e_weight">0.0001707969843</data>
+    </edge>
+  </graph>
+</graphml>
