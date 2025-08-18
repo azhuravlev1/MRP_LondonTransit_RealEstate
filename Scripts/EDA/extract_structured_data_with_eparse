@@ -1,0 +1,44 @@
+from eparse.core import get_df_from_file, df_serialize_table
+from pathlib import Path
+import json
+import os
+import argparse
+
+def extract_and_save_all_tables(root_data_dir, output_dir):
+    root_data_dir = Path(root_data_dir)
+    output_dir = Path(output_dir)
+    excel_files = list(root_data_dir.rglob("*.xls*"))
+
+    for file_path in excel_files:
+        print(f"📄 Parsing: {file_path}")
+        try:
+            # Get all tables from the file
+            tables_data = []
+            for df, excel_RC, name, sheet in get_df_from_file(file_path):
+                # Serialize each table with metadata
+                serialized_table = df_serialize_table(
+                    df,
+                    name=name,
+                    sheet=sheet,
+                    f_name=file_path.name
+                )
+                tables_data.append(serialized_table)
+
+            # Reconstruct the relative output path
+            relative_path = file_path.relative_to(root_data_dir).with_suffix("")
+            output_path = output_dir / relative_path.parent / (relative_path.name + "_parsed.json")
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(tables_data, f, indent=2, ensure_ascii=False)
+
+        except Exception as e:
+            print(f"❌ Failed to parse {file_path.name}: {e}")
+
+if __name__ == "__main__":
+    input_path = "/Users/andrey/Desktop/TMU/MRP/Code/Data"
+    output_path = "/Users/andrey/Desktop/TMU/MRP/Code/Data/parsed_dataset_jsons"
+
+    extract_and_save_all_tables(input_path, output_path)
+
+
