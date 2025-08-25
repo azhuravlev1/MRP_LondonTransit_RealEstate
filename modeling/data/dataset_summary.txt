@@ -1,0 +1,30 @@
+FINAL MODELING DATASET SUMMARY
+==================================================
+
+Total observations: 639
+Years: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+Boroughs: 30
+Columns: 81
+
+CENTRALITY MEASURES:
+- Weighted_In_Degree
+- Weighted_In_Degree_Lag1
+- Weighted_Out_Degree
+- Weighted_Out_Degree_Lag1
+- Betweenness_Centrality
+- Betweenness_Centrality_Lag1
+- Closeness_Centrality
+- Closeness_Centrality_Lag1
+- Eigenvector_Centrality
+- Eigenvector_Centrality_Lag1
+
+HOUSING DATA:
+- Average_House_Price
+
+ADDITIONAL VARIABLES:
+- Year fixed effects
+- Borough fixed effects
+- COVID_Period indicator
+- Interaction terms
+
+Missing values:

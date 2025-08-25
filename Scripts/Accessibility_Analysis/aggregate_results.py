@@ -107,9 +107,9 @@ def main():
     Main function to execute the metrics aggregation.
     """
     # Define file paths
-    centrality_file = 'Data/Outputs/Metrics/centrality_metrics.csv'
-    community_file = 'Data/Outputs/Metrics/community_metrics.csv'
-    output_file = 'Data/Outputs/Metrics/all_metrics_timeseries.csv'
+    centrality_file = '../../Data/Outputs/Metrics/centrality_metrics.csv'
+    community_file = '../../Data/Outputs/Metrics/community_metrics.csv'
+    output_file = '../../Data/Outputs/Metrics/all_metrics_timeseries.csv'
     
     print("=" * 60)
     print("METRICS AGGREGATION")

@@ -81,13 +81,43 @@ def calculate_centrality_metrics(graph):
     
     try:
         # Betweenness Centrality
-        betweenness = graph.betweenness(weights='weight')
+        # Convert flow weights to distance weights for proper betweenness calculation
+        # Betweenness is based on shortest paths, so high flow should be treated as "shorter" distance
+        flow_weights = graph.es['weight']
+        distance_weights = []
+        
+        for flow_weight in flow_weights:
+            if flow_weight > 0:
+                # Convert flow to distance: higher flow = lower distance
+                distance_weight = 1 / flow_weight
+            else:
+                # Handle zero flow as infinite distance
+                distance_weight = float('inf')
+            distance_weights.append(distance_weight)
+        
+        # Calculate betweenness centrality using distance weights
+        betweenness = graph.betweenness(weights=distance_weights)
     except:
         betweenness = [0] * len(boroughs)
     
     try:
         # Closeness Centrality
-        closeness = graph.closeness(weights='weight')
+        # Convert flow weights to distance weights for proper closeness calculation
+        # Flow weights (higher = better) need to be converted to distance weights (lower = better)
+        flow_weights = graph.es['weight']
+        distance_weights = []
+        
+        for flow_weight in flow_weights:
+            if flow_weight > 0:
+                # Convert flow to distance: higher flow = lower distance
+                distance_weight = 1 / flow_weight
+            else:
+                # Handle zero flow as infinite distance
+                distance_weight = float('inf')
+            distance_weights.append(distance_weight)
+        
+        # Calculate closeness centrality using distance weights
+        closeness = graph.closeness(weights=distance_weights)
     except:
         closeness = [0] * len(boroughs)
     
@@ -186,8 +216,8 @@ def main():
     Main function to execute centrality calculation.
     """
     # Define file paths
-    input_directory = 'Data/Graphs'
-    output_file = 'Data/Outputs/Metrics/centrality_metrics.csv'
+    input_directory = '../../Data/Graphs'
+    output_file = '../../Data/Outputs/Metrics/centrality_metrics.csv'
     
     print("=" * 60)
     print("CENTRALITY METRICS CALCULATION")

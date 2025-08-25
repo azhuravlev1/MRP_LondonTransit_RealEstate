@@ -1,0 +1,65 @@
+PANEL REGRESSION RESULTS INTERPRETATION
+============================================================
+
+EXECUTIVE SUMMARY
+--------------------
+This analysis examines the relationship between London's transit network centrality
+and housing prices from 2001 to 2023, using
+panel regression with fixed effects to control for borough-specific and time-specific factors.
+
+KEY FINDINGS
+---------------
+• 1 out of 4 centrality measures show
+  statistically significant effects on housing prices (p < 0.05)
+
+• Largest effect: Passenger Arrivals (t-1)
+  - Coefficient: 0.0128
+  - Effect size: 1.29% change in house prices
+  - Significance: p = 0.0000
+
+DETAILED RESULTS
+------------------
+Passenger Arrivals (t-1):
+  • Coefficient: 0.0128 (SE: 0.0029)
+  • Effect size: 1.29% change in house prices
+  • Significance: p = 0.0000 (***)
+  • Interpretation: A one standard deviation increase in Passenger Arrivals
+    is associated with a 1.29% change in house prices
+
+Betweenness Centrality (t-1):
+  • Coefficient: -0.0069 (SE: 0.0035)
+  • Effect size: -0.68% change in house prices
+  • Significance: p = 0.0522 (*)
+  • Interpretation: A one standard deviation increase in Betweenness Centrality
+    is associated with a -0.68% change in house prices
+
+Closeness Centrality (t-1):
+  • Coefficient: 0.0022 (SE: 0.0024)
+  • Effect size: 0.22% change in house prices
+  • Significance: p = 0.3544 (not significant)
+  • Interpretation: A one standard deviation increase in Closeness Centrality
+    is associated with a 0.22% change in house prices
+
+Eigenvector Centrality (t-1):
+  • Coefficient: -0.0067 (SE: 0.0140)
+  • Effect size: -0.67% change in house prices
+  • Significance: p = 0.6318 (not significant)
+  • Interpretation: A one standard deviation increase in Eigenvector Centrality
+    is associated with a -0.67% change in house prices
+
+POLICY IMPLICATIONS
+--------------------
+• Transit accessibility is significantly capitalized into London housing prices
+• Network centrality measures provide valuable indicators of locational advantage
+• Infrastructure investments that improve network connectivity may have
+  measurable impacts on property values
+• The relationship varies across different types of centrality, suggesting
+  nuanced effects of different aspects of transit accessibility
+
+METHODOLOGICAL NOTES
+----------------------
+• Panel regression with fixed effects controls for unobserved borough-specific
+  and time-specific factors
+• Lagged variables (t-1) are used to establish temporal precedence
+• Standardized coefficients allow comparison of effect sizes across measures
+• Clustered standard errors account for potential correlation within boroughs

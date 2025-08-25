@@ -127,8 +127,12 @@ def calculate_community_metrics(graph):
     boroughs = [v['name'] for v in graph.vs]
     
     try:
-        # Perform community detection using Leiden algorithm
-        communities = graph.community_leiden(weights='weight')
+        # Convert directed graph to undirected for community detection
+        # Sum the weights of bidirectional edges
+        undirected_graph = graph.as_undirected(combine_edges='sum')
+        
+        # Perform community detection using Louvain algorithm
+        communities = undirected_graph.community_multilevel(weights='weight')
         
         # Calculate participation coefficient for each borough
         participation_coefficients = []
@@ -231,8 +235,8 @@ def main():
     Main function to execute community metrics calculation.
     """
     # Define file paths
-    input_directory = 'Data/Graphs'
-    output_file = 'Data/Outputs/Metrics/community_metrics.csv'
+    input_directory = '../../Data/Graphs'
+    output_file = '../../Data/Outputs/Metrics/community_metrics.csv'
     
     print("=" * 60)
     print("COMMUNITY METRICS CALCULATION")

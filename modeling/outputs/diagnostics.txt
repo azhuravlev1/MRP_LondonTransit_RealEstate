@@ -1,0 +1,75 @@
+REGRESSION DIAGNOSTICS
+==============================
+
+MODEL FIT
+---------------
+R-squared: 0.9851
+Adjusted R-squared: 0.9836
+F-statistic: 171904.7114
+F p-value: 0.0000
+Observations: 639.0
+
+RESIDUAL ANALYSIS
+--------------------
+Jarque-Bera statistic: 21.3544
+Jarque-Bera p-value: 0.0000
+Breusch-Pagan statistic: 311.9984
+Breusch-Pagan p-value: 0.0000
+
+MULTICOLLINEARITY
+--------------------
+Weighted_In_Degree_Lag1_Standardized: 4.382
+Betweenness_Centrality_Lag1_Standardized: 3.146
+Closeness_Centrality_Lag1_Standardized: 4.006
+Eigenvector_Centrality_Lag1_Standardized: 21.204
+Year_2002: 1.916
+Year_2003: 1.916
+Year_2004: 1.917
+Year_2005: 1.917
+Year_2006: 1.925
+Year_2007: 1.923
+Year_2008: 1.926
+Year_2009: 1.922
+Year_2010: 1.921
+Year_2011: 1.925
+Year_2012: 1.926
+Year_2013: 1.927
+Year_2014: 1.935
+Year_2015: 1.941
+Year_2016: 1.944
+Year_2017: 1.947
+Year_2018: 2.531
+Year_2019: 2.213
+Year_2020: 2.132
+Year_2021: 4.924
+Year_2022: 2.329
+Year_2023: 2.130
+Borough_Barnet: 2.010
+Borough_Brent: 2.199
+Borough_Bromley: 1.657
+Borough_Camden: 5.259
+Borough_City_of_London: 3.805
+Borough_Croydon: 1.565
+Borough_Ealing: 2.022
+Borough_Enfield: 2.014
+Borough_Greenwich: 1.954
+Borough_Hackney: 2.011
+Borough_Hammersmith_and_Fulham: 2.325
+Borough_Haringey: 2.129
+Borough_Harrow: 1.960
+Borough_Havering: 2.470
+Borough_Hillingdon: 1.943
+Borough_Hounslow: 1.945
+Borough_Islington: 2.792
+Borough_Kensington_and_Chelsea: 2.689
+Borough_Lambeth: 3.581
+Borough_Lewisham: 1.388
+Borough_Merton: 1.939
+Borough_Newham: 2.608
+Borough_Redbridge: 1.961
+Borough_Richmond_upon_Thames: 2.196
+Borough_Southwark: 2.564
+Borough_Tower_Hamlets: 2.903
+Borough_Waltham_Forest: 1.998
+Borough_Wandsworth: 2.021
+Borough_Westminster: 15.849
