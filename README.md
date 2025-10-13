@@ -15,3 +15,6 @@ calculated for each borough. A fixed-effects panel regression model is then empl
 relationship between these structural network metrics and changes in housing prices. The project
 provides novel, data-driven insights into the economic impacts of transport infrastructure, offering a
 new analytical perspective for urban planning and housing policy.
+
+
+Full Project Report can be found in "MRP Report Andrey Zhuravlev.pdf"
