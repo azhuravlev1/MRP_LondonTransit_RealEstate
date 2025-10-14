@@ -2,7 +2,7 @@
 
 This folder contains the complete panel regression analysis framework for examining the relationship between London's transit network centrality and housing prices from 2000-2023.
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```
 Scripts/Modeling/           # Analysis scripts
@@ -17,7 +17,7 @@ modeling/                   # Data and outputs
 └── README.md              # This file
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 To run the complete analysis pipeline:
 
@@ -27,7 +27,7 @@ python Scripts/Modeling/run_complete_analysis.py
 
 This will execute all three scripts in sequence and generate all outputs.
 
-## 📊 Analysis Overview
+## Analysis Overview
 
 ### Research Question
 How do changes in London's transit network centrality affect borough-level housing prices over time?
@@ -45,7 +45,7 @@ How do changes in London's transit network centrality affect borough-level housi
 4. **Closeness Centrality**: How easily a borough can reach all others
 5. **Eigenvector Centrality**: Borough's connection to other important hubs
 
-## 🔧 Script Details
+## Script Details
 
 ### 01_prepare_final_dataset.py
 **Purpose**: Prepare the final dataset for regression analysis
@@ -120,7 +120,7 @@ How do changes in London's transit network centrality affect borough-level housi
 - `results_dashboard.png`: Comprehensive results summary
 - `interpretation_report.txt`: Detailed results interpretation
 
-## 🎯 Key Features
+## Key Features
 
 ### Robust Methodology
 - **Fixed Effects**: Controls for unobserved heterogeneity
@@ -140,7 +140,7 @@ How do changes in London's transit network centrality affect borough-level housi
 - **Clear Interpretation**: Effect sizes and practical significance
 - **Comprehensive Documentation**: Detailed reports and summaries
 
-## 🔍 Interpreting Results
+## Interpreting Results
 
 ### Coefficient Interpretation
 - **Positive Coefficient**: Higher centrality → Higher house prices
@@ -158,7 +158,7 @@ How do changes in London's transit network centrality affect borough-level housi
 - **Effect Size 1-5%**: Moderate practical effect
 - **Effect Size < 1%**: Small practical effect
 
-## 🛠️ Customization
+## Customization
 
 ### Adding New Variables
 1. Modify `centrality_measures` list in each script
@@ -175,7 +175,7 @@ How do changes in London's transit network centrality affect borough-level housi
 2. Modify plot layouts and styling
 3. Add new visualization types
 
-## 📚 Dependencies
+## Dependencies
 
 Required Python packages:
 - pandas
@@ -191,7 +191,7 @@ Install with:
 pip install pandas numpy statsmodels matplotlib seaborn scipy
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 1. **Missing Data Files**: Ensure `all_metrics_timeseries.csv` and housing price data are in the correct locations
@@ -211,7 +211,7 @@ This analysis framework is based on:
 - Real estate capitalization studies
 - London-specific transport and housing market research
 
-## 👨‍💻 Author
+## Author
 
 **Andrey Zhuravlev**  
 Master of Science in Data Science and Analytics  
