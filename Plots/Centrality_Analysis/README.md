@@ -4,11 +4,11 @@ This folder contains comprehensive visualizations for the London Transit Network
 
 ## Generated Files
 
-### 📊 Summary Tables
+### Summary Tables
 - `centrality_summary_table.csv` - Raw data table with pre/post COVID comparisons
 - `centrality_summary_display.csv` - Formatted table for display purposes
 
-### 📈 Visualization Plots
+### Visualization Plots
 
 #### 1. Borough Rankings (`01_borough_rankings.png`)
 **What it shows:** Top 10 boroughs ranked by each centrality measure (2000-2023 average)
