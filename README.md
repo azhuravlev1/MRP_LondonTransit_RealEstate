@@ -1,4 +1,3 @@
-# 🚇 
 # London Transit Network & Real Estate Analysis
 
 **Data Science Research Project | 2000-2024 | Python, Network Analysis, Econometrics**
@@ -66,7 +65,7 @@ This project analyzes how London's public transport network evolution influenced
 │   ├── NUMBAT/                       # Transit flow matrices (2000-2024)
 │   ├── RODS_OD/                      # Origin-destination data
 │   └── Graphs/                       # Network graph files
-├── 🔬 Scripts/                       # Analysis pipeline
+├── Scripts/                       # Analysis pipeline
 │   ├── EDA/                          # Exploratory data analysis
 │   ├── Graphs Construction/          # Network building
 │   ├── Accessibility Analysis/       # Centrality calculations
@@ -109,7 +108,7 @@ The analysis reveals:
 - **Temporal Dynamics**: COVID-19 period showed unique network restructuring patterns
 - **Policy Implications**: Infrastructure investments have measurable economic impacts
 
-## 🎓 Academic Context
+## Academic Context
 
 **Research Question**: How do changes in London's transit network structure influence borough-level housing prices over time?
 
