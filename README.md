@@ -44,7 +44,7 @@ This project analyzes how London's public transport network evolution influenced
 |----------|-------------|
 | **Languages** | Python 3.8+ |
 | **Data Processing** | pandas, numpy, scipy |
-| **Network Analysis** | NetworkX, graph-tool |
+| **Network Analysis** | igraph, graph-tool |
 | **Statistical Modeling** | statsmodels, scikit-learn |
 | **Visualization** | matplotlib, seaborn, plotly |
 | **Data Storage** | CSV, Excel, GraphML |
@@ -83,7 +83,7 @@ This project analyzes how London's public transport network evolution influenced
 
 ### Prerequisites
 ```bash
-pip install pandas numpy networkx statsmodels matplotlib seaborn scipy
+pip install pandas numpy igraph statsmodels matplotlib seaborn scipy
 ```
 
 ### Run Complete Analysis
