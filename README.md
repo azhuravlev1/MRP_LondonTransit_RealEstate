@@ -10,6 +10,8 @@ This repository contains the code, data pipelines, and findings from my Master's
 
 The project investigates how the structural evolution of London's public transport network influenced borough-level housing prices over a 24-year period (2000-2023). By constructing dynamic temporal graphs from historical passenger flow data and applying econometric panel modeling, this research quantifies the direct relationship between transit accessibility and real estate valuation.
 
+Full report available **[here](MRP%20Report%20Andrey%20Zhuravlev.pdf)** 
+
 ## Key Findings
 
 Unlike traditional proximity-based transit studies, this graph-based approach revealed nuanced dynamics about *how* a borough functions within the broader network:
