@@ -1,42 +1,52 @@
 # London Transit Network & Real Estate Analysis
 
-**Data Science Research Project | 2000-2024 | Python, Network Analysis, Econometrics**
-
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Complete-brightgreen.svg)]()
 
-## Project Overview
+## Overview
 
-This project analyzes how London's public transport network evolution influenced borough-level housing prices over 25 years (2000-2024). Using advanced graph mining techniques and econometric modeling, I quantified the relationship between transit accessibility and real estate values, providing data-driven insights for urban planning and policy.
+This repository contains the code, data pipelines, and findings from my Master's Research Project (MRP) in Data Science and Analytics at Toronto Metropolitan University.
 
-**Key Achievement**: Built a comprehensive analytical framework that processes 25 years of transit data to reveal significant correlations between network centrality and housing price changes.
+The project investigates how the structural evolution of London's public transport network influenced borough-level housing prices over a 24-year period (2000-2023). By constructing dynamic temporal graphs from historical passenger flow data and applying econometric panel modeling, this research quantifies the direct relationship between transit accessibility and real estate valuation.
 
-## Technical Highlights
+## Key Findings
 
-### **Data Engineering & Processing**
-- **Harmonized** 25 years of TfL RODS and NUMBAT datasets (2000-2024)
-- **Processed** 1,800+ transit network graphs and 189 origin-destination matrices
-- **Built** automated ETL pipelines for multi-source data integration
-- **Handled** missing data, standardization, and temporal alignment challenges
+Unlike traditional proximity-based transit studies, this graph-based approach revealed nuanced dynamics about *how* a borough functions within the broader network:
 
-### **Network Analysis & Graph Mining**
-- **Constructed** dynamic temporal graphs of London's transit system
-- **Calculated** 5 centrality metrics (betweenness, closeness, eigenvector, in/out-degree)
-- **Implemented** community detection algorithms for network structure analysis
-- **Analyzed** network evolution and infrastructure impact over time
+* **Destination Value:** Total passenger arrivals (Weighted In-Degree) proved to be a highly significant positive predictor of property value. A one standard deviation increase in passenger arrivals correlated with a 1.28% increase in a borough's average housing price.
 
-### **Statistical Modeling & Econometrics**
-- **Developed** fixed-effects panel regression models with clustered standard errors
-- **Implemented** lagged variable analysis for causal inference
-- **Conducted** comprehensive model diagnostics and robustness testing
-- **Created** interaction analysis for COVID-19 period effects
+* **The "Corridor Penalty":** Serving primarily as a transit corridor (Betweenness Centrality) showed a marginally significant *negative* effect (-0.69%), suggesting that the disamenities of high-traffic transit corridors (noise, congestion) can slightly offset pure connectivity benefits.
 
-### **Data Visualization & Reporting**
-- **Generated** publication-quality visualizations and dashboards
-- **Built** comprehensive results interpretation framework
-- **Created** interactive plots for network evolution analysis
-- **Produced** professional reports with statistical significance testing
+* **Pandemic Shifts:** Interaction analysis revealed a distinct structural shift post-2020, with central business hubs (Westminster, City of London) losing relative traffic share to outer residential boroughs (Sutton, Havering).
+
+* **Infrastructure Impact:** Long-term centrality heatmaps clearly tracked the economic impact of targeted infrastructure, such as the DLR expansion preceding the 2012 Olympics.
+
+## Technical Methodology
+
+This project required extensive data engineering to harmonize decades of disjointed transportation data into a unified, model-ready format.
+
+### 1. Data Engineering & Harmonization
+
+* **Transit Data Integration:** Processed and harmonized 24 years of passenger flow data from two fundamentally different TfL systems: manual survey data (RODS, 2000-2017) and smartcard/ticketing data (NUMBAT, 2017-2023).
+
+* **Geospatial Mapping:** Built custom Python web scrapers to extract historical station data from Wikipedia, mapping hundreds of uniquely coded stations (including the Underground, Overground, DLR, and Elizabeth Line) to their respective London boroughs.
+
+* **Entity Resolution:** Handled complex entity matching, resolving discrepancies between Master National Location Codes (NLCs), station names, and changing borough administrative boundaries over two decades.
+
+### 2. Network Analysis (Graph Mining)
+
+* **Dynamic Graphs:** Constructed directed, weighted graphs for each year using `igraph`, where nodes represent London boroughs and edges represent passenger journey volumes.
+
+* **Metric Extraction:** Calculated key topological features for each borough annually, including Weighted In/Out-Degree, Betweenness Centrality, Closeness Centrality, and Eigenvector Centrality.
+
+* **Community Detection:** Temporarily converted directed edges to undirected to run the Leiden algorithm, identifying distinct travel clusters and community structures across the network.
+
+### 3. Econometric Modeling
+
+* **Panel Regression:** Developed a fixed-effects panel regression model using OLS with clustered standard errors at the borough level to ensure reliable statistical inference.
+
+* **Causal Inference:** Utilized lagged accessibility metrics to isolate the causal, anticipatory impact of network changes on housing prices, controlling for macroeconomic trends and unobserved local heterogeneity.
 
 ## Technical Stack
 
@@ -100,25 +110,6 @@ python Scripts/Modeling/run_complete_analysis.py
 - **`Scripts/Accessibility_Analysis/`** - Network centrality calculations
 - **`Scripts/EDA/`** - Exploratory data analysis
 
-## Sample Results
-
-The analysis reveals:
-- **Betweenness Centrality**: Strongest predictor of housing price changes
-- **Network Effects**: Boroughs with high transit connectivity show 3-8% price premiums
-- **Temporal Dynamics**: COVID-19 period showed unique network restructuring patterns
-- **Policy Implications**: Infrastructure investments have measurable economic impacts
-
-## Academic Context
-
-**Research Question**: How do changes in London's transit network structure influence borough-level housing prices over time?
-
-**Methodology**: 
-- Dynamic temporal graph construction
-- Multi-metric centrality analysis
-- Fixed-effects panel regression with lagged variables
-- Comprehensive robustness testing
-
-**Contribution**: Novel application of graph mining to urban economics, providing quantitative evidence for transport infrastructure's impact on real estate markets.
 
 ## Documentation
 
@@ -131,9 +122,3 @@ The analysis reveals:
 **Andrey Zhuravlev**  
 Master of Science in Data Science and Analytics  
 Toronto Metropolitan University, 2025
-
-**Skills Demonstrated**: Data Engineering, Network Analysis, Statistical Modeling, Econometrics, Data Visualization, Research Methodology
-
----
-
-*This project showcases advanced data science techniques applied to real-world urban planning challenges, demonstrating the intersection of network science, econometrics, and policy analysis.*
