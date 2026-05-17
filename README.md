@@ -60,14 +60,6 @@ This project required extensive data engineering to harmonize decades of disjoin
 | **Data Storage** | CSV, Excel, GraphML |
 | **Development** | Jupyter Notebooks, Git |
 
-## Key Results
-
-- **Identified** significant correlations between transit centrality and housing prices
-- **Quantified** effect sizes for different centrality measures
-- **Revealed** differential impacts across London boroughs
-- **Demonstrated** network structure changes during COVID-19 period
-- **Provided** actionable insights for urban planning and policy
-
 ## Project Structure
 
 ```
