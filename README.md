@@ -111,8 +111,10 @@ python Scripts/Modeling/run_complete_analysis.py
 - **[Modeling Framework](modeling/README.md)** - Technical implementation details
 - **[Centrality Analysis](Plots/Centrality_Analysis/README.md)** - Network metrics documentation
 
+
 ## About the Author
 
-**Andrey Zhuravlev**  
-Master of Science in Data Science and Analytics  
-Toronto Metropolitan University, 2025
+**Andrey Zhuravlev** [LinkedIn Profile](https://linkedin.com/in/your-profile)
+
+* **M.Sc. in Data Science and Analytics**, Toronto Metropolitan University (2025)
+* **H.B.Sc. in Statistics & Mathematics** *(Specialist in Statistical Machine Learning and Data Mining)*, University of Toronto (2021)
