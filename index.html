@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>London's Transit Network and Its House Prices | Andrey Zhuravlev</title>
+<meta name="description" content="A graph-based analysis of how 25 years of changes in London's public transport network relate to borough house prices. MSc Major Research Project, Toronto Metropolitan University, 2025.">
+<meta property="og:title" content="How London's transit network shows up in its house prices">
+<meta property="og:description" content="25 years of TfL passenger flows, 1,934 networks and a fixed-effects panel model. MSc Major Research Project by Andrey Zhuravlev.">
+<meta property="og:image" content="https://azhuravlev1.github.io/MRP_LondonTransit_RealEstate/assets/img/network-2019.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2224%22 fill=%22none%22 stroke=%22%23DC241F%22 stroke-width=%2210%22/%3E%3Crect x=%224%22 y=%2226%22 width=%2256%22 height=%2212%22 fill=%22%230019A8%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="modulepreload" href="pdfjs/build/pdf.mjs">
+</head>
+<body>
+
+<!-- Decorative tube-map lines behind everything -->
+<svg class="tube-bg" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path class="line" style="--c:#DC241F" d="M-40 230 H360 L480 350 H900 L1020 230 H1480"/>
+    <path class="line" style="--c:#6950A1" d="M-40 420 H250 L340 510 H760 L860 410 H1480"/>
+    <path class="line" style="--c:#EE7C0E" d="M120 -40 V140 L240 260 V620 L340 720 H620 L700 800 V1040"/>
+    <path class="line" style="--c:#00A4A7" d="M1040 1040 V820 L1120 740 H1300 L1380 660 V-40"/>
+    <path class="line" style="--c:#A0A5A9" d="M620 -40 V170 L700 250 V560 L780 640 H1100 L1180 720 V1040"/>
+    <path class="line" style="--c:#0098D4" d="M1480 120 H1210 L1120 210 V470 L1020 570 H420 L330 660 V1040"/>
+    <path class="line" style="--c:#00782A" d="M-40 860 H260 L360 760 H980 L1060 840 H1480"/>
+  </g>
+  <g class="ticks" fill="#fff">
+    <rect x="420" y="342" width="6" height="16" rx="2"/><rect x="560" y="342" width="6" height="16" rx="2"/>
+    <rect x="760" y="342" width="6" height="16" rx="2"/><rect x="1180" y="222" width="6" height="16" rx="2"/>
+    <rect x="150" y="412" width="6" height="16" rx="2"/><rect x="520" y="502" width="6" height="16" rx="2"/>
+    <rect x="1000" y="402" width="6" height="16" rx="2"/><rect x="232" y="420" width="16" height="6" rx="2"/>
+    <rect x="692" y="380" width="16" height="6" rx="2"/><rect x="1372" y="300" width="16" height="6" rx="2"/>
+    <rect x="1112" y="320" width="16" height="6" rx="2"/><rect x="470" y="752" width="6" height="16" rx="2"/>
+    <rect x="860" y="752" width="6" height="16" rx="2"/><rect x="1260" y="832" width="6" height="16" rx="2"/>
+  </g>
+  <g class="interchanges" fill="#fff" stroke="#0b1a5e" stroke-width="4">
+    <circle cx="240" cy="420" r="11"/><circle cx="700" cy="350" r="11"/><circle cx="700" cy="510" r="11"/>
+    <circle cx="1120" cy="410" r="11"/><circle cx="1380" cy="230" r="11"/><circle cx="1040" cy="640" r="11"/>
+    <circle cx="340" cy="720" r="11"/><circle cx="660" cy="760" r="11"/><circle cx="1180" cy="760" r="11"/>
+  </g>
+</svg>
+
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Back to top">
+    <span class="roundel roundel-sm" aria-hidden="true"><span></span></span>
+    <span>Andrey Zhuravlev</span>
+  </a>
+  <nav class="toplinks">
+    <a href="#story">The story</a>
+    <a href="https://github.com/azhuravlev1/MRP_LondonTransit_RealEstate" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <p class="kicker">Major Research Project · MSc Data Science and Analytics · Toronto Metropolitan University · 2025</p>
+  <h1>How London's transit network shows up in its house prices</h1>
+  <p class="subtitle">London Transit Network Changes and Housing Market Dynamics: A Graph-Based Analysis (2000–2023)</p>
+  <p class="byline">Andrey Zhuravlev · supervised by Dr. Pawel Pralat</p>
+
+  <a class="gh-cta" href="https://github.com/azhuravlev1/MRP_LondonTransit_RealEstate" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="gh-cta-text">
+      <strong>View the code on GitHub</strong>
+      <small>github.com/azhuravlev1/MRP_LondonTransit_RealEstate</small>
+    </span>
+    <span class="gh-cta-arrow" aria-hidden="true">→</span>
+  </a>
+
+  <div class="paper-card">
+    <div class="paper-preview-wrap">
+      <div class="paper-preview" id="paperPreview" tabindex="0" aria-label="Scrollable preview of the MRP paper">
+        <div class="preview-loading">Loading the paper…</div>
+      </div>
+      <span class="preview-page" id="previewPage" aria-live="polite"></span>
+    </div>
+    <div class="paper-info">
+      <p class="paper-label">The paper</p>
+      <h2 class="paper-title">The full Major Research Paper as submitted</h2>
+      <p class="paper-meta" id="paperMeta">PDF · 38 pages · 1.9 MB</p>
+      <div class="paper-buttons">
+        <button class="btn btn-primary" id="openReader" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Open in reader
+        </button>
+        <a class="btn btn-secondary" href="paper/MRP_Report_Andrey_Zhuravlev.pdf" download="Zhuravlev_2025_MRP_London_Transit_and_Housing.pdf">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download PDF
+        </a>
+      </div>
+      <a class="paper-gh-link" href="https://github.com/azhuravlev1/MRP_LondonTransit_RealEstate/blob/main/MRP%20Report%20Andrey%20Zhuravlev.pdf" target="_blank" rel="noopener">Or see the PDF in the GitHub repository</a>
+    </div>
+  </div>
+
+  <a class="scroll-cue" href="#story">The story, in six stops <span aria-hidden="true">↓</span></a>
+</section>
+
+<!-- ============ STORY ============ -->
+<div class="story" id="story">
+
+  <section class="stop reveal" style="--line:#DC241F">
+    <div class="stop-head">
+      <span class="roundel" aria-hidden="true"><span>1</span></span>
+      <div>
+        <p class="stop-kicker">Stop 1</p>
+        <h2>Mind the gap</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">Over the last 25 years London extended the DLR several times, launched the London Overground in 2007 and opened the Elizabeth line in 2022. Each of these changed which parts of the city are easy to reach. The question behind this project is easy to ask and hard to measure: when the network changes, do house prices follow?</p>
+      <p>There is a large body of research on exactly this, but very little of it is about London. When researchers treat a rail system as a network and ask whether well-connected places command higher prices, the answer keeps coming back yes. In Kolkata, homes around stations with high closeness and eigenvector centrality sold at premiums of 9 to 40% <a class="ref" href="#ref-1">[1]</a>. Across Chinese cities, a 10% rise in a station's harmonic centrality went with an 11% rise in nearby land prices <a class="ref" href="#ref-2">[2]</a>. Similar results came from Bangkok <a class="ref" href="#ref-3">[3]</a>, Hong Kong <a class="ref" href="#ref-4">[4]</a> and Beijing <a class="ref" href="#ref-5">[5]</a>, and in Shanghai prices near new subway stations started rising a month before they opened and kept rising for six months after <a class="ref" href="#ref-6">[6]</a>.</p>
+
+      <figure class="fig fig-pair">
+        <div class="pair">
+          <img src="assets/img/bangkok-betweenness-2016.jpg" alt="Bangkok rail network in 2016 with stations sized by betweenness centrality, largest around Siam and Asok" loading="lazy">
+          <img src="assets/img/bangkok-betweenness-2026.jpg" alt="Bangkok rail network planned for 2026 with stations sized by betweenness centrality, importance shifting to Bang Sue and Phetchaburi" loading="lazy">
+        </div>
+        <figcaption><span class="fig-num">Figure 1.</span> As Bangkok's network grows, the stations that most journeys pass through move outwards: betweenness centrality in 2016 (left) and on the planned 2026 network (right). Bigger dots mean more shortest paths run through the station. From Vichiensan et al. (2023) <a class="ref" href="#ref-3">[3]</a>, Figure 3b and 3f, CC BY 4.0.</figcaption>
+      </figure>
+
+      <p>For London, most of the long-run evidence comes from reports commissioned by the organisations that built the lines or sell homes near them. An evaluation for TfL and the Department for Transport found a 7 to 10% price uplift near Crossrail stations before they even opened <a class="ref" href="#ref-7">[7]</a>, and CBRE reported that prices near Elizabeth line stations rose 80% between 2008 and 2023 <a class="ref" href="#ref-8">[8]</a>. These numbers are useful, but they are not independent and rarely show their methods. The academic work that does exist is narrower, such as the effect of the Crossrail announcement on prices in Ealing <a class="ref" href="#ref-9">[9]</a> or a classification of London stations by their role in the network <a class="ref" href="#ref-10">[10]</a>. Nobody had followed the whole network and the whole housing market over decades.</p>
+
+      <figure class="fig">
+        <img src="assets/img/beijing-gwr.jpg" alt="Map of Beijing showing local estimates of the metro accessibility effect on house prices, ranging from negative in blue to strongly positive in red" loading="lazy">
+        <figcaption><span class="fig-num">Figure 2.</span> The same improvement in access is not worth the same everywhere: local estimates of how much metro accessibility adds to house prices across Beijing, from negative (blue) to the largest premiums (red). From Zhou et al. (2022) <a class="ref" href="#ref-5">[5]</a>, Figure 2, CC BY 4.0.</figcaption>
+      </figure>
+
+      <p>Two lessons from this literature shaped the design. The effect differs from place to place, so it should be measured locally, here for each borough. And it can appear before or after a line opens, so the analysis needs a long time series rather than a single before-and-after snapshot.</p>
+    </div>
+  </section>
+
+  <section class="stop reveal" style="--line:#EE7C0E">
+    <div class="stop-head">
+      <span class="roundel" aria-hidden="true"><span>2</span></span>
+      <div>
+        <p class="stop-kicker">Stop 2</p>
+        <h2>Getting the data</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">Three datasets had to be stitched together, and none of them were designed to be used together.</p>
+      <ul class="datasets">
+        <li><span class="dot" style="--c:#EE7C0E"></span><div><strong>UK House Price Index.</strong> Monthly average prices for every London borough.</div></li>
+        <li><span class="dot" style="--c:#DC241F"></span><div><strong>RODS, 2000–2017.</strong> TfL's Rolling Origin and Destination Survey: annual estimates of weekday journeys between Underground stations, from passenger surveys.</div></li>
+        <li><span class="dot" style="--c:#6950A1"></span><div><strong>NUMBAT, 2017–2023.</strong> TfL's model of rail demand built from ticketing data, train load-weighing and passenger counts, covering the Underground, Overground, DLR and Elizabeth line in 15-minute slots.</div></li>
+      </ul>
+      <p>The open data portal only had NUMBAT for 2019 and 2022. To fill in the rest, I filed a Freedom of Information request with TfL and received the data for 2017, 2018, 2020, 2021 and 2023.</p>
+
+      <figure class="fig fig-diagram">
+        <div id="timeline" class="timeline" role="img" aria-label="Timeline of data coverage: house prices from 1995, RODS from 2000 to 2017, NUMBAT from 2017 to 2023 with 2019 and 2022 from the open data portal and the other years from a Freedom of Information request"></div>
+        <figcaption><span class="fig-num">Figure 3.</span> Data coverage, drawn as a line diagram. Filled stations on the NUMBAT line came from TfL's open data portal; the hollow ones were obtained through the Freedom of Information request.</figcaption>
+      </figure>
+
+      <p>Then came the unglamorous part. House prices are organised by borough, RODS by station name and NUMBAT by National Location Code, and no two sources spell things the same way. I wrote scrapers to map every Tube, Overground, Elizabeth line and DLR station to its borough from Wikipedia (the 113 Overground stations had to be read one station page at a time) and built a table linking codes to stations for all 472 stations in NUMBAT. Along the way it turned out the 2022 matrices contain 674 codes, because they include junctions and routing points that are not stations at all.</p>
+
+      <figure class="fig fig-diagram">
+        <div id="venn" class="venn" role="img" aria-label="30 borough names appear in both the house price index and the station data, 3 only in the house price index, 9 only in the station data"></div>
+        <figcaption><span class="fig-num">Figure 4.</span> After cleaning, 30 borough names match between the house price index and the combined station data. The 3 found only in the price data are boroughs without stations on these networks; the 9 found only in the station data are places outside Greater London, later grouped as "Out of London". Redrawn from Figure 2 in the paper.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stop reveal" style="--line:#6950A1">
+    <div class="stop-head">
+      <span class="roundel" aria-hidden="true"><span>3</span></span>
+      <div>
+        <p class="stop-kicker">Stop 3</p>
+        <h2>From journeys to networks</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">With everything matched, each year of journeys becomes a network. Boroughs are the nodes, and the number of people travelling from one borough to another is the weight of the edge between them.</p>
+      <div class="stats">
+        <div><span class="stat-num" data-count="25">25</span><span class="stat-label">years of passenger flows</span></div>
+        <div><span class="stat-num" data-count="34">34</span><span class="stat-label">nodes: 33 boroughs and "Out of London"</span></div>
+        <div><span class="stat-num" data-count="1934">1,934</span><span class="stat-label">networks built with igraph</span></div>
+        <div><span class="stat-num" data-count="57319">57,319</span><span class="stat-label">borough-level measurements</span></div>
+      </div>
+      <p>There is a network for every year, for each type of day, for six time bands and for all 96 quarter-hours of the day. Figure 5 shows one of them: a typical weekday in 2019.</p>
+
+      <figure class="fig">
+        <img src="assets/img/network-2019.jpg" alt="Network diagram of London boroughs in 2019, with Westminster as the largest node and the heaviest flows running between central boroughs" loading="lazy">
+        <figcaption><span class="fig-num">Figure 5.</span> London's total weekday passenger flow in 2019. Node size shows travel within a borough; thicker, darker edges carry more passengers. From the project repository.</figcaption>
+      </figure>
+
+      <p>The network is built around one place. Westminster's internal travel alone is more than three times that of the next borough, and the flows have a very long tail: a few pairs of boroughs carry huge volumes, while most carry very little.</p>
+
+      <figure class="fig">
+        <img src="assets/img/network-stats-2019.png" alt="Bar chart of the ten boroughs with the most internal travel in 2019, led by Westminster, and a log-scale histogram of edge weights" loading="lazy">
+        <figcaption><span class="fig-num">Figure 6.</span> The ten boroughs with the most internal travel in 2019 (left) and the distribution of flow weights on a log scale (right). (Figure 3 in the paper.)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stop reveal" style="--line:#00A4A7">
+    <div class="stop-head">
+      <span class="roundel" aria-hidden="true"><span>4</span></span>
+      <div>
+        <p class="stop-kicker">Stop 4</p>
+        <h2>The pandemic reshuffle</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">Comparing 2019 with 2022 shows how much the pandemic rearranged travel across the city.</p>
+      <p>Most boroughs received fewer passengers in 2022 than in 2019. The City of London lost 24% of its arrivals and Richmond upon Thames 37%. A few places grew: Greenwich by 27%, Havering by 8%, and journeys ending outside London by 44%. The office core became less of a magnet, and that kind of shift is exactly what a static map of the network cannot show.</p>
+      <figure class="fig">
+        <img src="assets/img/covid-change.png" alt="Bar chart of the percentage change in passenger arrivals by borough between 2019 and 2022; most boroughs decline, Greenwich and Havering grow" loading="lazy">
+        <figcaption><span class="fig-num">Figure 7.</span> Change in passenger arrivals by borough, 2019 versus 2022. (Figure 6 in the paper.)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stop reveal" style="--line:#0098D4">
+    <div class="stop-head">
+      <span class="roundel" aria-hidden="true"><span>5</span></span>
+      <div>
+        <p class="stop-kicker">Stop 5</p>
+        <h2>What makes a borough important?</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">"Well connected" can mean several different things, so each borough gets five scores for every network.</p>
+      <div class="measures">
+        <div class="measure"><h3>Arrivals</h3><p>How many journeys end in the borough. A destination.</p></div>
+        <div class="measure"><h3>Departures</h3><p>How many journeys start there. A place people live and leave from.</p></div>
+        <div class="measure"><h3>Betweenness</h3><p>How often the borough sits on the busiest routes between other boroughs. A corridor.</p></div>
+        <div class="measure"><h3>Closeness</h3><p>How easily it reaches every other borough.</p></div>
+        <div class="measure"><h3>Eigenvector</h3><p>Whether its strongest links lead to other important boroughs.</p></div>
+      </div>
+      <p>For the path-based scores, busy links count as short ones (distance is one over the flow), so a route that carries many passengers behaves like a fast connection. Travel communities were found with the Leiden algorithm.</p>
+      <figure class="fig fig-narrow">
+        <img src="assets/img/correlation.png" alt="Correlation matrix of the centrality measures: in-degree and out-degree are correlated at 0.998, the other pairs are close to zero" loading="lazy">
+        <figcaption><span class="fig-num">Figure 8.</span> Correlations between the measures across all years. Arrivals and departures are almost the same thing (0.998), so only arrivals go into the model; the rest are close to uncorrelated, which means each one captures something different. (Figure 7 in the paper.)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stop reveal" style="--line:#00782A">
+    <div class="stop-head">
+      <span class="roundel" aria-hidden="true"><span>6</span></span>
+      <div>
+        <p class="stop-kicker">Stop 6</p>
+        <h2>What moves prices</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">The model compares each borough with itself over time.</p>
+      <p>Borough fixed effects absorb everything permanent about a place: the river, the schools, the reputation. Year fixed effects absorb everything that hits all of London at once: interest rates, the 2008 crash, the pandemic. What is left is a cleaner question. When a borough's position in the network changes, does its average house price change the following year? Prices are logged and the scores standardised, so each estimate reads as the percentage change in prices for a one standard deviation change in the score, and standard errors are clustered by borough.</p>
+
+      <div class="callouts">
+        <div class="callout good"><span class="callout-num">+1.28%</span><span>in house prices for one standard deviation more passenger arrivals in the previous year (p &lt; 0.001)</span></div>
+        <div class="callout warn"><span class="callout-num">−0.69%</span><span>for one standard deviation more betweenness, the "corridor" score (p = 0.052)</span></div>
+      </div>
+
+      <figure class="fig fig-diagram">
+        <div id="forest" class="forest" role="img" aria-label="Estimated effects with 95% confidence intervals: arrivals +1.28% clearly above zero, betweenness −0.69% just touching zero, closeness and eigenvector not distinguishable from zero"></div>
+        <figcaption><span class="fig-num">Figure 9.</span> Estimated effect on house prices of a one standard deviation increase in each score in the previous year, with 95% confidence intervals, drawn from Table 4 of the paper. Adjusted R² is 0.984, mostly thanks to the fixed effects.</figcaption>
+      </figure>
+
+      <p>Being a destination is capitalised into prices. Being a corridor is not: boroughs that many journeys pass through without stopping carry a small discount, plausibly from the noise, traffic and crowds that come with it. Closeness and eigenvector centrality showed no measurable effect.</p>
+    </div>
+  </section>
+
+  <section class="stop stop-last reveal" style="--line:#A0A5A9">
+    <div class="stop-head">
+      <span class="roundel roundel-terminus" aria-hidden="true"><span>⟶</span></span>
+      <div>
+        <p class="stop-kicker">Terminus</p>
+        <h2>Where the line goes next</h2>
+      </div>
+    </div>
+    <div class="card">
+      <p>Boroughs are large, and the literature shows that the value of access changes over short distances (Figure 2). The natural next step is to work at station or neighbourhood level. Graph neural networks fit this kind of data well: recent work on Scottish house prices used them together with explainability methods to show which neighbouring areas drive each prediction <a class="ref" href="#ref-11">[11]</a>. RODS and NUMBAT also measure journeys in different ways, so a longer and consistent NUMBAT series would make comparisons across 2017 cleaner.</p>
+      <div class="end-links">
+        <a class="btn btn-primary" href="https://github.com/azhuravlev1/MRP_LondonTransit_RealEstate" target="_blank" rel="noopener">Explore the code</a>
+        <button class="btn btn-secondary" type="button" data-open-reader>Read the paper</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="refs reveal" id="references">
+    <h2>References</h2>
+    <ol>
+      <li id="ref-1">Chakrabarti, S., Kushari, T., and Mazumder, T. (2022). Does transportation network centrality determine housing price? <em>Journal of Transport Geography</em>, 103, 103397.</li>
+      <li id="ref-2">Han, D., and Wu, S. (2023). The capitalization and urbanization effect of subway stations: A network centrality perspective. <em>Transportation Research Part A</em>, 176, 103815.</li>
+      <li id="ref-3">Vichiensan, V., Wasuntarasook, V., Prakayaphun, T., Kii, M., and Hayashi, Y. (2023). Influence of urban railway network centrality on residential property values in Bangkok. <em>Sustainability</em>, 15, 16013. CC BY 4.0.</li>
+      <li id="ref-4">He, S. Y. (2020). Regional impact of rail network accessibility on residential property price: Modelling spatial heterogeneous capitalisation effects in Hong Kong. <em>Transportation Research Part A</em>.</li>
+      <li id="ref-5">Zhou, Y., Tian, Y., Jim, C. Y., Liu, X., Luan, J., and Yan, M. (2022). Effects of public transport accessibility and property attributes on housing prices in polycentric Beijing. <em>Sustainability</em>, 14, 14743. CC BY 4.0.</li>
+      <li id="ref-6">Wang, J., and Tang, H. Subway expansion and housing price dynamics: Accessibility improvements and spatial heterogeneity in Shanghai. Preprint.</li>
+      <li id="ref-7">Arup for Transport for London and the Department for Transport (2022). Crossrail baseline evaluation: Pre-opening property impacts report.</li>
+      <li id="ref-8">CBRE (2024). The Elizabeth Line: The impact on London's housing market.</li>
+      <li id="ref-9">Comber, S., and Arribas-Bel, D. (2017). "Waiting on the train": The anticipatory (causal) effects of Crossrail in Ealing. <em>Journal of Transport Geography</em>.</li>
+      <li id="ref-10">Zhang, Y., Marshall, S., and Manley, E. (2021). Understanding the roles of rail stations: Insights from network approaches in the London metropolitan area. <em>Journal of Transport Geography</em>, 94, 103110.</li>
+      <li id="ref-11">Karamanou, A., Brimos, P., Kalampokis, E., and Tarabanis, K. (2024). Explainable graph neural networks: An application to open statistics knowledge graphs for estimating house prices. <em>Technologies</em>, 12(8), 128.</li>
+    </ol>
+    <p class="credits">Figures 1 and 2 are reproduced from open-access articles under the Creative Commons Attribution 4.0 licence. All other figures are from the paper or the project repository. Data: UK House Price Index (Open Government Licence v3) and Transport for London RODS and NUMBAT (Open Government Licence).</p>
+  </section>
+</div>
+
+</main>
+
+<footer class="footer">
+  <span class="roundel roundel-sm" aria-hidden="true"><span></span></span>
+  <p>Andrey Zhuravlev · <a href="https://github.com/azhuravlev1" target="_blank" rel="noopener">github.com/azhuravlev1</a> · <a href="https://linkedin.com/in/andrey-zh" target="_blank" rel="noopener">linkedin.com/in/andrey-zh</a></p>
+</footer>
+
+<!-- ============ READER OVERLAY ============ -->
+<div class="reader" id="reader" aria-hidden="true">
+  <div class="reader-backdrop" data-close-reader></div>
+  <div class="reader-panel" id="readerPanel" role="dialog" aria-modal="true" aria-label="MRP paper reader">
+    <img class="reader-cover" id="readerCover" alt="">
+    <div class="reader-bar">
+      <span class="reader-title">London Transit Network Changes and Housing Market Dynamics</span>
+      <div class="reader-actions">
+        <a class="reader-btn" href="paper/MRP_Report_Andrey_Zhuravlev.pdf" download="Zhuravlev_2025_MRP_London_Transit_and_Housing.pdf" title="Download PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Download</span>
+        </a>
+        <button class="reader-btn reader-close" type="button" data-close-reader title="Close (Esc)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <span>Close</span>
+        </button>
+      </div>
+    </div>
+    <div class="reader-body">
+      <iframe class="reader-frame" id="readerFrame" title="PDF reader" tabindex="-1"></iframe>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
